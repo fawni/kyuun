@@ -1,0 +1,8 @@
+# Rust
+/target
+
+# Production
+.env
+*.json
+
+
