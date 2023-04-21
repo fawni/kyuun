@@ -86,7 +86,7 @@ async fn setup() -> miette::Result<()> {
     cfg = Config {
         authorization_code: code,
         access_token: token.access_token,
-        refresh_token: token.refresh_token,
+        refresh_token: token.refresh_token.unwrap(),
         expires_in: chrono::Utc::now().timestamp() + token.expires_in,
         ..cfg
     };
