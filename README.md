@@ -18,11 +18,11 @@ i would also like to note that this was initially written as a quick and dirty l
 
 Static binaries are automatically released [here](https://github.com/fawni/kyuun/releases)
 
-<!-- ### crates.io
+### crates.io
 
 ```
 cargo install kyuun
-``` -->
+```
 
 ### Build from source
 
