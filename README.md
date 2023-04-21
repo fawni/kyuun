@@ -16,7 +16,7 @@ i would also like to note that this was initially written as a quick and dirty l
 
 ## Installation
 
-<!-- Static binaries are automatically released [here](https://github.com/fawni/kyuun/releases) -->
+Static binaries are automatically released [here](https://github.com/fawni/kyuun/releases)
 
 <!-- ### crates.io
 
