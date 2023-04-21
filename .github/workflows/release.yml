@@ -46,19 +46,16 @@ jobs:
           command: build
           args: --target ${{ matrix.target }} --release --locked
 
-      - name: Upload files (Mac/Linux)
+      - name: Archive artifacts (Mac/Linux)
         if: matrix.target != 'x86_64-pc-windows-msvc'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          UPLOADTOOL_ISPRERELEASE: true
           VERSION: ${{  github.ref_name }}
         run: |
-          curl -L https://github.com/probonopd/uploadtool/raw/master/upload.sh --output upload.sh
+          mkdir output/
           mv target/${{ matrix.target }}/release/kyuun kyuun
-          tar -cavf kyuun-${VERSION}-${{ matrix.target }}.tar.gz kyuun README.md LICENSE
-          bash upload.sh kyuun-${VERSION}-${{ matrix.target }}.tar.gz
+          tar -cavf output/kyuun-${VERSION}-${{ matrix.target }}.tar.gz kyuun README.md LICENSE
 
-      - name: Rename files (Windows)
+      - name: Rename artifactes (Windows)
         if: matrix.target == 'x86_64-pc-windows-msvc'
         env:
           VERSION: ${{ github.ref_name }}
@@ -66,9 +63,9 @@ jobs:
           mkdir output/
           mv target/${{ matrix.target }}/release/kyuun.exe output/kyuun-$env:VERSION-${{ matrix.target }}.exe
 
-      - name: Upload files (Windows)
+      - name: Upload files
         uses: ncipollo/release-action@v1
-        if: matrix.target == 'x86_64-pc-windows-msvc'
+        # if: matrix.target == 'x86_64-pc-windows-msvc'
         with:
           allowUpdates: true
           artifacts: "output/*"
