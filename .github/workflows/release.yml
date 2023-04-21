@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    name: ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            target: x86_64-unknown-linux-gnu
+            toolchain: stable
+
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            toolchain: stable
+
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            toolchain: nightly
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Rust cache restore
+        uses: "Swatinem/rust-cache@v1"
+        with:
+          key: ${{ runner.os }}-cargo-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target ${{ matrix.target }} --release --locked
+
+      - name: Upload files (Mac/Linux)
+        if: matrix.target != 'x86_64-pc-windows-msvc'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOADTOOL_ISPRERELEASE: true
+          VERSION: ${{  github.ref_name }}
+        run: |
+          curl -L https://github.com/probonopd/uploadtool/raw/master/upload.sh --output upload.sh
+          mv target/${{ matrix.target }}/release/kyuun kyuun
+          tar -cavf kyuun-${VERSION}-${{ matrix.target }}.tar.gz kyuun CHANGELOG.md README.md LICENSE
+          bash upload.sh kyuun-${VERSION}-${{ matrix.target }}.tar.gz
+
+      - name: Rename files (Windows)
+        if: matrix.target == 'x86_64-pc-windows-msvc'
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          mkdir output/
+          mv target/${{ matrix.target }}/release/kyuun.exe output/kyuun-$env:VERSION-${{ matrix.target }}.exe
+
+      - name: Upload files (Windows)
+        uses: ncipollo/release-action@v1
+        if: matrix.target == 'x86_64-pc-windows-msvc'
+        with:
+          allowUpdates: true
+          artifacts: "output/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
