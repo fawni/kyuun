@@ -97,7 +97,7 @@ async fn setup() -> miette::Result<()> {
 }
 
 async fn run(id_: Option<String>) -> miette::Result<()> {
-    let cfg = confy::load::<Config>("kyuun", "kyuun").into_diagnostic()?;
+    let mut cfg = confy::load::<Config>("kyuun", "kyuun").into_diagnostic()?;
 
     // refresh token if expired
     if chrono::Utc::now().timestamp() > cfg.expires_in {
@@ -114,16 +114,12 @@ async fn run(id_: Option<String>) -> miette::Result<()> {
             .json::<Token>()
             .await
             .into_diagnostic()?;
-        confy::store(
-            "kyuun",
-            "kyuun",
-            &Config {
-                access_token: token.access_token,
-                expires_in: chrono::Utc::now().timestamp() + token.expires_in,
-                ..cfg
-            },
-        )
-        .into_diagnostic()?;
+        cfg = Config {
+            access_token: token.access_token,
+            expires_in: chrono::Utc::now().timestamp() + token.expires_in,
+            ..cfg
+        };
+        confy::store("kyuun", "kyuun", &cfg).into_diagnostic()?;
     }
 
     let playlist_id = match id_ {
