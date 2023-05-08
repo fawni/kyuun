@@ -46,6 +46,22 @@ jobs:
           command: build
           args: --target ${{ matrix.target }} --release --locked
 
+      - name: Run UPX (Mac/Linux)
+        if: matrix.target != 'x86_64-pc-windows-msvc'
+        uses: crazy-max/ghaction-upx@v2
+        with:
+          version: latest
+          files: ./target/${{ matrix.target }}/release/kyuun
+          args: -9q
+
+      - name: Run UPX (Windows)
+        if: matrix.target == 'x86_64-pc-windows-msvc'
+        uses: crazy-max/ghaction-upx@v2
+        with:
+          version: latest
+          files: ./target/${{ matrix.target }}/release/kyuun.exe
+          args: -9q
+
       - name: Archive artifacts (Mac/Linux)
         if: matrix.target != 'x86_64-pc-windows-msvc'
         env:
