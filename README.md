@@ -11,8 +11,6 @@ Sometimes i want to a quick summary about a playlist to ~~judge~~ get a general 
 
 ![scrot](assets/scrot.png)
 
-> ###### i don't use spotify that much do NOT judge...
-
 It simply lists the artists and how many times they appear in the playlist along with some other basic stats but i might add more stuff in the future!
 
 ## Installation
