@@ -9,7 +9,7 @@ A simple Spotify playlists analyzer
 
 Sometimes i want to a quick summary about a playlist to ~~judge~~ get a general idea of what it offers. For me it's particularily interesting for the unique playlists that Spotify taylors to each user!
 
-![scrot](assets/scrot.png)
+<img alt="scrot" width="85%" src="assets/scrot.png" />
 
 It simply lists the artists and how many times they appear in the playlist along with some other basic stats but i might add more stuff in the future!
 
