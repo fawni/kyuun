@@ -17,7 +17,13 @@ It simply lists the artists and how many times they appear in the playlist along
 
 ## Installation
 
-Static binaries are automatically released [here](https://github.com/fawni/kyuun/releases)
+### Prebuilt
+
+Static binaries are automatically released [here](https://github.com/fawni/kyuun/releases), which can also be installed using [cargo-binstall](https://github.com/cargo-bins/cargo-binstall)
+
+```
+cargo binstall kyuun
+```
 
 ### crates.io
 
