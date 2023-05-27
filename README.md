@@ -1,5 +1,8 @@
 # kyuun 🍒
 
+[![Build status](https://github.com/fawni/kyuun/actions/workflows/clippy.yml/badge.svg)](https://github.com/fawni/kyuun/actions)
+[![Crates.io](https://img.shields.io/crates/v/kyuun.svg)](https://crates.io/crates/kyuun)
+
 A simple Spotify playlists analyzer
 
 ## Motivation
@@ -11,8 +14,6 @@ Sometimes i want to a quick summary about a playlist to ~~judge~~ get a general 
 > ###### i don't use spotify that much do NOT judge...
 
 It simply lists the artists and how many times they appear in the playlist along with some other basic stats but i might add more stuff in the future!
-
-i would also like to note that this was initially written as a quick and dirty little program for me but i ended up making it more accessible; the performance/code quality was never a concern, hence the plethora of `clone()`s.
 
 ## Installation
 
