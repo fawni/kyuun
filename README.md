@@ -7,7 +7,7 @@ A simple Spotify playlists analyzer
 
 ## Motivation
 
-Sometimes i want to a quick summary about a playlist to ~~judge~~ get a general idea of what it offers. For me it's particularily interesting for the unique playlists that Spotify taylors to each user!
+Sometimes i want a quick summary about a playlist to ~~judge~~ get a general idea of what it offers. For me it's particularily interesting for the unique playlists that Spotify taylors to each user!
 
 <img alt="scrot" width="85%" src="assets/scrot.png" />
 
