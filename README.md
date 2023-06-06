@@ -29,12 +29,6 @@ cargo binstall kyuun
 cargo install kyuun
 ```
 
-### Build from source
-
-```
-cargo install --git https://github.com/fawni/kyuun
-```
-
 ### Usage
 
 1. Create a new app in the [Spotify dev dashboard](https://developer.spotify.com/dashboard)
