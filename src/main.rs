@@ -56,7 +56,7 @@ async fn setup() -> miette::Result<()> {
         warp::serve(home.or(auth)).run(([0, 0, 0, 0], 1410)).await;
     });
     let auth_url = "http://localhost:1410/auth";
-    webbrowser::open(auth_url).into_diagnostic()?;
+    open::that(auth_url).into_diagnostic()?;
     info!(
         "Opened {} in your browser. {}",
         auth_url.bright_blue(),
